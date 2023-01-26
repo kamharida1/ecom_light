@@ -12,6 +12,7 @@ import OnboardingNavigation from "./OnBoardingNavigator";
 import MainNavigator from "./MainNavigator";
 import ShoppingNavigation from "./ShoppingNavigator";
 import ProfileNavigation from "./ProfileNavigator";
+import CustomBottomTab from "./CustomBottomTab";
 
 const AppTheme = {
   ...DefaultTheme,
@@ -41,7 +42,7 @@ export function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {/* <Stack.Screen name="Root" component={OnboardingNavigation} /> */}
-      <Stack.Screen name="Main" component={MainNavigator} />
+      <Stack.Screen name="Main" component={CustomBottomTab} />
       <Stack.Screen
         name="Shopping"
         component={ShoppingNavigation}

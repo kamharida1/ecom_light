@@ -10,9 +10,11 @@ const BottomNavigator = createBottomTabNavigator<MainStackList>();
 
 export default function MainTabs() {
   return (
-    <BottomNavigator.Navigator tabBar={props => < BottomTabs {...props} />}>
+    <BottomNavigator.Navigator
+      tabBar={props => < BottomTabs {...props} />}
+    >
       <BottomNavigator.Screen
-        options={{title: "AguBrothers", headerTitleAlign: 'center'}}
+        options={{title: "Home", headerTitleAlign: 'center'}}
         name="Home"
         component={Home}
       />
