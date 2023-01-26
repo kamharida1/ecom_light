@@ -30,7 +30,7 @@ const theme = createTheme({
   colors: {
     background: palette.white,
     background2: palette.grey,
-    primary: palette.darkPink,
+    primary: palette.yellow,
     primaryLight: palette.lightCyan,
     secondary: palette.darkBlue,
     info: palette.darkGrey,
@@ -49,6 +49,8 @@ const theme = createTheme({
     m: 16,
     l: 24,
     xl: 40,
+    xxl: 60,
+    xxxl: 80
   },
   borderRadii: {
     s: 4,
@@ -60,7 +62,7 @@ const theme = createTheme({
     defaults: {
       fontFamily: "Airbnb-Bold",
       fontSize: 20,
-      color: "background"
+      color: "secondary"
     },
     hero: {
       fontFamily: "Airbnb-Bold",
@@ -69,10 +71,22 @@ const theme = createTheme({
       color: "background",
       textAlign: "center",
     },
+    medium: {
+      fontFamily: "Airbnb-Bold",
+      fontSize: 24,
+      lineHeight: 40,
+      color: "secondary",
+      textAlign: "center",
+    },
     title1: {
       fontFamily: "Airbnb-Semibold",
       fontSize: 28,
       color: "secondary",
+    },
+    tabBar: {
+      fontFamily: "Airbnb-Light",
+      fontSize: 16,
+      color: "background",
     },
     title2: {
       fontFamily: "Airbnb-Semibold",

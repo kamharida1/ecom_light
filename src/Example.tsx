@@ -9,7 +9,7 @@ import TextInput from './components/Form/TextInput'
 import Checkbox from './components/Form/Checkbox'
 
 
-const Main = () => {
+const Example = () => {
   const { colors } = useTheme();
   return (
     <View style={styles.container}>
@@ -38,7 +38,7 @@ const Main = () => {
   );
 }
 
-export default Main
+export default Example
 
 const styles = StyleSheet.create({
   container: {
