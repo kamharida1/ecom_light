@@ -13,7 +13,7 @@ const Example = () => {
   const { colors } = useTheme();
   return (
     <View style={styles.container}>
-      <Button label="Hello World" onPress={() => {}} />
+      <Button label="Hello World" onPress={() => { }} />
       <Separator />
       <RoundIcon
         name="check"
@@ -36,7 +36,8 @@ const Example = () => {
       <Separator />
     </View>
   );
-}
+};
+
 
 export default Example
 

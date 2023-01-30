@@ -18,19 +18,21 @@ export const palette = {
   darkBlue: "#0C0D34",
   orange: "#FE5E33",
   yellow: "#FFC641",
+  blue: "#3B71F3",
   pink: "#FF87A2",
   darkPink: "#FF0058",
   violet: "#442CB9",
   lightBlue: "#BFEAF5",
   grey: "#F4F0EF",
   darkGrey: "#808080",
+ 
 };
 
 const theme = createTheme({
   colors: {
     background: palette.white,
     background2: palette.grey,
-    primary: palette.yellow,
+    primary: palette.blue,
     primaryLight: palette.lightCyan,
     secondary: palette.darkBlue,
     info: palette.darkGrey,
@@ -60,8 +62,8 @@ const theme = createTheme({
   },
   textVariants: {
     defaults: {
-      fontFamily: "Airbnb-Bold",
-      fontSize: 20,
+      fontFamily: "Airbnb-Medium",
+      fontSize: 16,
       color: "secondary"
     },
     hero: {

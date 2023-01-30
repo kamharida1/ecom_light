@@ -1,47 +1,53 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { Box, Text } from '../../components/Theme'
-import CustomButton from '../../components/customButton';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useEffect } from 'react'
+import { Image, StyleSheet } from 'react-native';
+import { OnBoardingStackList } from '../../../types';
+import Screen from '../../components/Screen'
+import { Text, useTheme } from '../../components/Theme';
 
-const Splash = () => {
+
+interface Props {
+  navigation: StackNavigationProp<OnBoardingStackList, 'Splash'>
+}
+
+const Splash = ({ navigation }: Props) => {
+  const { colors } = useTheme();
+  useEffect(() => {
+    const checkStorage = async () => {
+      navigation.replace('Login')
+    }
+    checkStorage();
+  }, [])
   return (
-    <Box flex={1} padding="l" pt="xl">
-      <Box flex={1} pt="xl">
-        <Text mb="xl" variant="medium">
-          Splash
-        </Text>
-        <CustomButton text="Success" onPress={() => {}} />
-        <CustomButton
-          text="Forgot Password"
-          type="TERTIARY"
-          onPress={() => {}}
-        />
-        <CustomButton
-          text="Sign In with Facebook"
-          type="TERTIARY"
-          onPress={() => {}}
-          bgColor="#E7EAF4"
-          fgColor="#4765A9"
-        />
-        <CustomButton
-          text="Sign In with Google"
-          type="TERTIARY"
-          onPress={() => {}}
-          bgColor="#FAE9EA"
-          fgColor="#DD4D44"
-        />
-        <CustomButton
-          text="Sign In with Apple"
-          type="TERTIARY"
-          onPress={() => {}}
-          bgColor="#e3e3e3"
-          fgColor="#363636"
-        />
-      </Box>
-    </Box>
+    <Screen style={styles.screen}>
+      <Image
+        style={styles.logo}
+        source={require('../../../assets/icons/logo.png')}
+      />
+      <Text style={styles.appName}>
+        AguBrothers
+      </Text>
+    </Screen>
   );
 }
 
-export { Splash }
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  logo: {
+    width: '100%',
+    height: 200,
+    resizeMode: 'contain'
+  },
+  appName: {
+    fontSize: 25,
+    paddingTop: 24,
+    paddingBottom: 24,
+    color: '#000'
+  }
+})
 
-const styles = StyleSheet.create({})
+export { Splash }

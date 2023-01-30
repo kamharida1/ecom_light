@@ -1,7 +1,8 @@
 import "react-native-gesture-handler";
 
 import { StatusBar } from "expo-status-bar";
-import { Image, StyleSheet, Text, useColorScheme, View } from "react-native";
+import { useFonts } from "expo-font";
+import { ActivityIndicator, Image, StyleSheet, Text, useColorScheme, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import LoadAssets from "./src/components/LoadAssets";
 import { ThemeProvider } from "./src/components/Theme";
@@ -9,9 +10,11 @@ import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import Example from "./src/Example";
 import Router, { RootNavigator } from "./src/router/StackNavigator";
+import { NavigationContainer } from "@react-navigation/native";
 
 const uri =
   "https://img.freepik.com/free-photo/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-concrete_1258-48234.jpg?w=360";
+
 const fonts = {
   "Airbnb-Bold": require("./assets/fonts/AirbnbCereal_W_Bd.otf"),
   "Airbnb-Regular": require("./assets/fonts/AirbnbCereal_W_Bk.otf"),
@@ -21,28 +24,42 @@ const fonts = {
 };
 
 export default function App() {
-  const text = "Hello, my container is blurring contents underneath!";
-  const colorScheme = useColorScheme();
+  let [fontsLoaded] = useFonts({
+    "Airbnb-Bold": require("./assets/fonts/AirbnbCereal_W_Bd.otf"),
+    "Airbnb-Regular": require("./assets/fonts/AirbnbCereal_W_Bk.otf"),
+    "Airbnb-Semibold": require("./assets/fonts/AirbnbCereal_W_Blk.otf"),
+    "Airbnb-Medium": require("./assets/fonts/AirbnbCereal_W_Md.otf"),
+    "Airbnb-Light": require("./assets/fonts/AirbnbCereal_W_Lt.otf"),
+  });
+
+  if (!fontsLoaded) {
+    return <ActivityIndicator />;
+  }
   return (
-    <ThemeProvider>
-      <LoadAssets {...{ fonts }}>
-          
-            {/* <View style={styles.container}>
-    //         <BlurView intensity={20} tint="light" style={styles.blurContainer}>
-    //           <Text style={{
-    //             fontFamily: "Airbnb-Medium",
-    //             fontSize: 20,
-    //             color: "rgba(255, 255, 255, 0.8)"
-    //           }}>
-    //             {text}
-    //           </Text>
-    //         </BlurView>
-    //       </View> */}
-            <RootNavigator />
-          <StatusBar style="dark" />
-       </LoadAssets>
-     </ThemeProvider>
+    // <ThemeProvider>
+    //   <LoadAssets {...{ fonts }}>
+
+    //         {/* <View style={styles.container}>
+    // //         <BlurView intensity={20} tint="light" style={styles.blurContainer}>
+    // //           <Text style={{
+    // //             fontFamily: "Airbnb-Medium",
+    // //             fontSize: 20,
+    // //             color: "rgba(255, 255, 255, 0.8)"
+    // //           }}>
+    // //             {text}
+    // //           </Text>
+    // //         </BlurView>
+    // //       </View> */}
+    //         <RootNavigator />
+    //       <StatusBar style="dark" />
+    //    </LoadAssets>
+    //  </ThemeProvider>
     // <Router colorScheme={colorScheme} />
+    <ThemeProvider>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }
 

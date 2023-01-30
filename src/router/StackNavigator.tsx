@@ -23,13 +23,9 @@ const AppTheme = {
   },
 };
 
-export default function Router({
-  colorScheme,
-}: {
-  colorScheme: ColorSchemeName;
-}) {
+export default function Router() {
   return (
-    <NavigationContainer theme={colorScheme === "dark" ? DarkTheme : AppTheme}>
+    <NavigationContainer>
       <StatusBar style="light" />
       <RootNavigator />
     </NavigationContainer>
@@ -42,7 +38,7 @@ export function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {/* <Stack.Screen name="Root" component={OnboardingNavigation} /> */}
-      <Stack.Screen name="Main" component={CustomBottomTab} />
+      <Stack.Screen name="Main" component={MainNavigator} />
       <Stack.Screen
         name="Shopping"
         component={ShoppingNavigation}

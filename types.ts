@@ -37,6 +37,8 @@ export type OnBoardingStackList = {
     Splash: NO_PARAMS
     Login: NO_PARAMS
     Register: NO_PARAMS
+    ForgotPassword: NO_PARAMS
+    PasswordChanged: NO_PARAMS
 }
 
 export type MainStackList = {
