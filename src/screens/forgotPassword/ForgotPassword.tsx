@@ -1,5 +1,5 @@
 import { Linking, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Screen from '../../components/Screen'
 import { Box, Text } from '../../components/Theme';
 import TextInput from '../../components/Form/TextInput';
@@ -7,22 +7,41 @@ import Button from '../../components/Button';
 import { Footer } from '../login/components';
 import * as Yup from 'yup'
 import { useFormik } from 'formik';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { OnBoardingStackList } from '../../../types';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RouteProp } from '@react-navigation/native';
+import { onScreen } from '../../constants';
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
+
 interface Props {
-  navigation: StackNavigationProp<OnBoardingStackList, "PasswordChanged">;
+  navigation: NativeStackNavigationProp<OnBoardingStackList, "ForgotPassword">;
+  route: RouteProp<OnBoardingStackList, "ForgotPassword">;
 }
 
-const ForgotPassword = ({navigation}: Props) => {
+const ForgotPassword = ({ navigation, route }: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // const _onPress = async (values: { email: string }): Promise<void> => {
+  //   setLoading(true)
+  //   try {
+  //     const { email } = values
+  //     const user = await Auth.forgotPassword(email);
+  //     user && onScreen("ForgotPassSubmit", navigation, values)();
+  //     setLoading(false);
+  //   } catch (err) {
+  //     setError(error)
+  //   }
+  // };
+
   const { handleChange, handleBlur, handleSubmit, errors, touched } = useFormik(
     {
       validationSchema: ForgotPasswordSchema,
       initialValues: { email: "" },
-      onSubmit: () => navigation.navigate("PasswordChanged"),
+      onSubmit: (values) => undefined,
     }
   );
 
@@ -50,7 +69,6 @@ const ForgotPassword = ({navigation}: Props) => {
             onBlur={handleBlur("email")}
             error={errors.email}
             touched={touched.email}
-            autoCompleteType="email"
             returnKeyType="go"
             returnKeyLabel="go"
             onSubmitEditing={() => handleSubmit()}

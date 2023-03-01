@@ -1,11 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Background } from './components'
 
 const Catalogue = () => {
   return (
-    <View>
-      <Text>Catalogue</Text>
-    </View>
+   <Background />
   )
 }
 

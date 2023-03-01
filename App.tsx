@@ -1,5 +1,7 @@
 import "react-native-gesture-handler";
 
+import { LogBox } from "react-native";
+
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
 import { ActivityIndicator, Image, StyleSheet, Text, useColorScheme, View } from "react-native";
@@ -11,7 +13,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import Example from "./src/Example";
 import Router, { RootNavigator } from "./src/router/StackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { AuthProvider } from "./src/contexts/AuthContext";
+ 
 const uri =
   "https://img.freepik.com/free-photo/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-concrete_1258-48234.jpg?w=360";
 
@@ -57,7 +60,9 @@ export default function App() {
     // <Router colorScheme={colorScheme} />
     <ThemeProvider>
       <NavigationContainer>
-        <RootNavigator />
+        <AuthProvider>
+          <RootNavigator />
+        </AuthProvider>
       </NavigationContainer>
     </ThemeProvider>
   );

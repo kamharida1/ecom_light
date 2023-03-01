@@ -5,6 +5,7 @@ import {
   createBox,
   createText,
   createTheme,
+  useTheme as useReTheme,
 } from "@shopify/restyle";
 
 export const palette = {
@@ -13,6 +14,7 @@ export const palette = {
   black: "#111",
   darkGray: "#333",
   lightGray: "#EEE",
+  myWhite: "#F0F0F3",
 };
 
 const theme = createTheme({
@@ -23,7 +25,8 @@ const theme = createTheme({
   colors: {
     mainBackground: palette.lightGray,
     mainForeground: palette.black,
-
+    white1: palette.myWhite,
+    white2: palette.lightGray,
     primaryCardBackground: palette.purple,
     secondaryCardBackground: palette.white,
     primaryCardText: palette.white,
@@ -65,6 +68,7 @@ const darkTheme: Theme = {
 
 const Box = createBox<Theme>();
 const Text = createText<Theme>();
+export const useTheme = () => useReTheme<Theme>();
 
 const App = () => {
   const [darkMode, setDarkMode] = useState(false);

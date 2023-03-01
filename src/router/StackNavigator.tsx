@@ -13,6 +13,7 @@ import MainNavigator from "./MainNavigator";
 import ShoppingNavigation from "./ShoppingNavigator";
 import ProfileNavigation from "./ProfileNavigator";
 import CustomBottomTab from "./CustomBottomTab";
+import { AuthContext } from "../contexts/AuthContext";
 
 const AppTheme = {
   ...DefaultTheme,
@@ -35,18 +36,22 @@ export default function Router() {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export function RootNavigator() {
+  const { isLoggedIn, setIsLoggedIn } = React.useContext(AuthContext);
+  const [checcking, setIsChecking] = React.useState();
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {/* <Stack.Screen name="Root" component={OnboardingNavigation} /> */}
-      <Stack.Screen name="Main" component={MainNavigator} />
-      <Stack.Screen
-        name="Shopping"
-        component={ShoppingNavigation}
-      />
-      <Stack.Screen
-        name="UserProfile"
-        component={ProfileNavigation}
-      />
+      {!isLoggedIn ? (
+        <>
+          <Stack.Screen name="Main" component={CustomBottomTab} />
+          <Stack.Screen name="Shopping" component={ShoppingNavigation} />
+          <Stack.Screen name="UserProfile" component={ProfileNavigation} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="Root" component={OnboardingNavigation} />
+        </>
+      )}
     </Stack.Navigator>
   );
 }

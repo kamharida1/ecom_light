@@ -39,6 +39,9 @@ export type OnBoardingStackList = {
     Register: NO_PARAMS
     ForgotPassword: NO_PARAMS
     PasswordChanged: NO_PARAMS
+    ForgotPassSubmit: NO_PARAMS
+    Landing: NO_PARAMS
+    ConfirmSignUp: NO_PARAMS
 }
 
 export type MainStackList = {

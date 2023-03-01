@@ -7,16 +7,18 @@ import { Profile } from "../screens/profile";
 import { Cart } from "../screens/cart";
 import { StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
+import { useTheme } from "../components/Theme";
 
 const BottomNavigator = createBottomTabNavigator<MainStackList>();
 
 export default function CustomBottomTab() {
+  const { colors } = useTheme();
   return (
     <BottomNavigator.Navigator
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarActiveTintColor: "#e47911",
-        tabBarInactiveTintColor: "#FFbd7d",
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: "gray",
         headerShown: false,
         tabBarStyle: { position: "absolute" },
         tabBarBackground: () => (

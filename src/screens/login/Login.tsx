@@ -1,11 +1,12 @@
 import { FlatList, ScrollView, StyleSheet } from "react-native";
-import React, { useRef } from "react";
-import { StackNavigationProp } from "@react-navigation/stack";
+import React, { useContext, useRef, useState } from "react";
+import * as SecureStore from "expo-secure-store";
+
 import { TextInput as RNTextInput } from "react-native";
 import { OnBoardingStackList } from "../../../types";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { CommonActions } from "@react-navigation/native";
+import { CommonActions, RouteProp } from "@react-navigation/native";
 import Screen from "../../components/Screen";
 import { Box, Text } from "../../components/Theme";
 import TextInput from "../../components/Form/TextInput";
@@ -13,9 +14,12 @@ import Checkbox from "../../components/Form/Checkbox";
 import { BorderlessButton } from "react-native-gesture-handler";
 import Button from "../../components/Button";
 import { Footer } from "./components";
+import { AuthContext } from "../../contexts/AuthContext";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 interface Props {
-  navigation: StackNavigationProp<OnBoardingStackList, "Login">;
+  navigation: NativeStackNavigationProp<OnBoardingStackList, "Login">;
+  route: RouteProp<OnBoardingStackList, 'Login'>
 }
 
 const LoginSchema = Yup.object().shape({
@@ -26,8 +30,40 @@ const LoginSchema = Yup.object().shape({
     .required("Required"),
 });
 
-const Login = ({ navigation }: Props) => {
-  const {
+const Login = ({ navigation, route }: Props) => {
+  const { setIsLoggedIn } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [userInfo, setUserInfo] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
+
+  // const login = async (values: { email: string, password: string }) => {
+  //   setError('');
+  //   try {
+  //     const { email, password } = values;
+  //     const user = await Auth.signIn(email, password);
+  //     console.log(JSON.stringify(user))
+  //     await SecureStore.setItemAsync('authKeyEmail', email);
+  //     await SecureStore.setItemAsync('AuthKeyPassword', password);
+  //     setIsLoggedIn(true);
+  //     setLoading(false)
+  //   } catch ({ code }) {
+  //     setLoading(false)
+  //     if (code === "UserNotConfirmedException") {
+  //       setError("Account not verified yet");
+  //     } else if (code === "PasswordResetRequiredException") {
+  //       setError("Existing user found. Please reset your password");
+  //     } else if (code === "NotAuthorizedException") {
+  //       setUserInfo(values);
+  //       setError("Forgot Password?");
+  //     } else if (code === "UserNotFoundException") {
+  //       setError("User does not exist!");
+  //     } else {
+  //       setError(code as string);
+  //     }
+  //   }
+  // };
+
+   const {
     handleChange,
     handleBlur,
     handleSubmit,
@@ -38,7 +74,7 @@ const Login = ({ navigation }: Props) => {
   } = useFormik({
     validationSchema: LoginSchema,
     initialValues: { email: "", password: "", remember: false },
-    onSubmit: () =>
+    onSubmit: (values) => 
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
@@ -64,7 +100,6 @@ const Login = ({ navigation }: Props) => {
             onBlur={handleBlur("email")}
             error={errors.email}
             touched={touched.email}
-            autoCompleteType="email"
             returnKeyType="next"
             returnKeyLabel="next"
             onSubmitEditing={() => password.current?.focus()}
@@ -78,17 +113,19 @@ const Login = ({ navigation }: Props) => {
           onBlur={handleBlur("password")}
           error={errors.password}
           touched={touched.password}
-          autoCompleteType="password"
           autoCapitalize="none"
           returnKeyType="go"
           returnKeyLabel="go"
           onSubmitEditing={() => handleSubmit()}
           secureTextEntry
         />
+        <Text style={{ alignSelf: "center", marginVertical: 10, color: "red" }}>
+          {error}
+        </Text>
         <Box
           flexDirection="row"
           justifyContent="space-between"
-          marginVertical="s"
+          marginVertical="m"
           alignItems="center"
         >
           <Checkbox

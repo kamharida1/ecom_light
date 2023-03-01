@@ -7,12 +7,16 @@ import {
   useTheme as useReTheme,
   ThemeProvider as ReStyleThemeProvider,
 } from "@shopify/restyle";
+import { BlendMode } from "@shopify/react-native-skia";
 
 const { width } = Dimensions.get("window");
 export const aspectRatio = width / 374;
 
 export const palette = {
   white: "#FFFFFF",
+  red: "#DB3022",
+  bgGrey: "#e8f4f8",
+  lightGray: "#EEE",
   cyan: "rgba(0,0,1000,0.5)",
   lightCyan: "#E7F9F7",
   darkBlue: "#0C0D34",
@@ -25,14 +29,14 @@ export const palette = {
   lightBlue: "#BFEAF5",
   grey: "#F4F0EF",
   darkGrey: "#808080",
- 
 };
 
-const theme = createTheme({
+export const theme = createTheme({
   colors: {
     background: palette.white,
-    background2: palette.grey,
-    primary: palette.blue,
+    background2: palette.lightGray,
+    bgDark: palette.darkBlue,
+    primary: palette.red,
     primaryLight: palette.lightCyan,
     secondary: palette.darkBlue,
     info: palette.darkGrey,
@@ -52,13 +56,16 @@ const theme = createTheme({
     l: 24,
     xl: 40,
     xxl: 60,
-    xxxl: 80
+    xxxl: 80,
+    xxxxl: 150,
+    xxxxxl: 250
   },
   borderRadii: {
     s: 4,
     m: 10,
     l: 25,
     xl: 75,
+    xxl: 100
   },
   textVariants: {
     defaults: {
@@ -78,7 +85,6 @@ const theme = createTheme({
       fontSize: 24,
       lineHeight: 40,
       color: "secondary",
-      textAlign: "center",
     },
     title1: {
       fontFamily: "Airbnb-Semibold",
@@ -90,10 +96,11 @@ const theme = createTheme({
       fontSize: 16,
       color: "background",
     },
-    title2: {
-      fontFamily: "Airbnb-Semibold",
-      fontSize: 24,
-      lineHeight: 30,
+    body2: {
+      fontFamily: "Airbnb-Regular",
+      fontSize: 16,
+      fontWeight: 'bold',
+      lineHeight: 23,
       color: "secondary",
     },
     title3: {
@@ -102,10 +109,10 @@ const theme = createTheme({
       color: "secondary",
     },
     body: {
-      fontFamily: "Airbnb-Regular",
+      fontFamily: "Airbnb-Medium",
       fontSize: 16,
       lineHeight: 24,
-      color: "body",
+      color: "secondary",
     },
     button: {
       fontFamily: "Airbnb-Medium",
